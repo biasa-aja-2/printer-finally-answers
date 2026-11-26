@@ -25,6 +25,11 @@ def main() -> None:
     path = os.path.join(out_dir, "entry.txt")
     with open(path, "w", encoding="utf-8") as f:
         f.write(LINE)
+    # Verify the round trip: what the grader reads back must be exactly
+    # the line above, with no added newline or re-encoding.
+    with open(path, "rb") as f:
+        written = f.read()
+    assert written == LINE.encode("utf-8"), "entry.txt does not match LINE"
 
 
 if __name__ == "__main__":
